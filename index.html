@@ -5,9 +5,32 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="./PaperScissorsRock.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+  
 </head>
 <body>
-  
+  <p class="instructions"></p>
+  <div class="ascii-row">
+    <p class="player-art"></p>
+    <p class="computer-art"></p>
+  </div>
+  <div class="button-row">
+    <button class="paper">Paper</button>
+    <button class="scissors">Scissors</button>  
+    <button class="rock">Rock</button>
+  </div>
+  <div class="scoreboard">
+    <div class="player-score">
+      <p class="player"></p>
+    </div>
+    <div class="comp-score">
+      <p class="computer"></p>
+    </div>
+  </div>
+  <button class="reset">Reset</button>
+  <script src="./PaperScissorsRock.js"></script>
 </body>
 </html>

@@ -1,0 +1,68 @@
+body {
+  background-color:black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+  gap: 40px;
+  font-size:larger;
+  color:darkgreen;
+  font-family: 'Press Start 2P', cursive;
+}
+
+button {
+  flex: 0 0 100px;
+  font-family: 'Press Start 2P', cursive;
+  width: 220px;
+  height: 60px;
+  margin: 20px;
+  border-radius: 5px;
+  background-color: black;
+  border-color: darkgreen;
+  border-style: dotted;
+  font-size: large;
+  color: darkgreen;
+  transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.1);
+  border-color: white;
+  background-color: white;
+}
+
+.scoreboard {
+  margin-top: 40px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+  font-size: x-large;
+}
+
+.player-score {
+  align-items: center;
+}
+
+.ascii-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 0 100px 50px 100px;
+  width: 100%;
+  height: 150px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  white-space: pre;
+}
+
+.player-art {
+  width: 100px;
+}
+
+.computer-art {
+  width: 100px;
+}
+

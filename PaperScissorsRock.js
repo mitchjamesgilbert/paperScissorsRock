@@ -1,58 +1,199 @@
 function getComputerChoice() {
-  const array = ["Paper", "Scissors", "Rock"];
+  const array = ["paper", "scissors", "rock"];
   return array[Math.floor(Math.random() * array.length)];
 }
 
-function playRound(playerSelection, computerSelection) {
-  playerSelection = playerSelection.toLowerCase();
-  computerSelection = computerSelection.toLowerCase();
-  if (playerSelection == computerSelection) {
-    console.log (`Draw. ${playerSelection} draws with ${computerSelection}`);
-    return 0;
-  }
-  if (playerSelection == "paper" && computerSelection == "rock"
-    || playerSelection == "scissors" && computerSelection == "paper"
-    || playerSelection == "rock" && computerSelection == "scissors") {
-      console.log(`You win. ${playerSelection} beats ${computerSelection}`);
-      return "player";
-    } 
-  else {
-    console.log(`You lose. ${computerSelection} beats ${playerSelection}`);
-    return "computer";
-  }
-}
 
-function game() {
-  let playerScore = 0;
-  let computerScore = 0;
-  let userChoice;
-  for (let i = 0; i < 5; i++) {
-    do {
-      userChoice = prompt("Choose paper, scissors or rock.");
-      if (!inputIsValid(userChoice)) {
-        alert("Invalid choice, please try again");
-      }
-    } while (!inputIsValid(userChoice));
-
-    winner = playRound(userChoice, getComputerChoice());
-    if (winner == "player") {
-      playerScore += 1;
-    } else if (winner == "computer") {
-      computerScore += 1;
+function playRound(playerChoice) {
+  playerChoiceMade = true;
+  let computerChoice = getComputerChoice();
+  let computerArt = document.querySelector('.computer-art');
+  playerArt.textContent = playerAscii[`${playerChoice}`];
+  computerArt.textContent = computerAscii[`${computerChoice}`];
+  let result;
+  if (computerChoice == playerChoice) {
+    computerScore ++;
+    playerScore ++;
+    result = "It is a draw";
+  }
+  else if (playerChoice == "paper" && computerChoice == "rock"
+    || playerChoice == "scissors" && computerChoice == "paper"
+    || playerChoice == "rock" && computerChoice == "scissors") {
+      result = "You win!";
+      playerScore ++;
     }
+  else {
+    result = "You lose";
+    computerScore ++;
   }
-  console.log(`Your score is: ${playerScore}`);
-  console.log(`Computer score: ${computerScore}`);
+  instructions.textContent = `You picked ${playerChoice}. 
+                              Computer picked ${computerChoice}. ${result}`
+  playerDisplay.textContent = `Player score: ${playerScore}`;
+  computerDisplay.textContent = `Computer score: ${computerScore}`;
+  timeoutActive = true;
+  setTimeout(reset, 2500);
 }
 
-function inputIsValid(input) {
-  input = input.toLowerCase();
-  const choices = ["paper", "scissors", "rock"];
-  if (choices.includes(input)) {
-    return true;
-  }
-  return false;
+
+function reset() {
+  instructions.textContent = "Choose paper, scissors or rock"
+  playerArt.textContent = "";
+  computerArt.textContent = "";
+  playerChoiceMade = false;
+  timeoutActive = false;  
 }
 
-game();
 
+const playerAscii = {
+  rock: `
+    ________
+---'   _____)
+      (_____)
+      (_____)
+       (____)
+---.___(___)
+`,
+
+  scissors: `
+    _______      
+---'   ____)____
+          ______)
+      __________)
+     (____)
+---.__(___)
+`,
+
+  paper:  `
+     _______      
+---'    ____)___
+           _____)
+          _______)
+         _______)
+---.__________) 
+`
+}
+
+const computerAscii = {
+
+  rock: `
+   ________
+  (_____   '---
+  (_____)
+  (_____)   
+  (____)
+   (___)___'---
+   `,
+
+  scissors: `
+        _______
+   ____(____   '---
+  (______
+  (__________
+        (____)
+        (___)__'--- 
+        `,
+
+  paper: `
+        _______
+    ___(____    '--- 
+   (_____
+  (_______
+   (_______
+     (__________'---    
+    
+        `        
+} 
+
+
+let playerChoice;
+let playerChoiceMade = false;
+let timeoutActive = false;
+let playerScore = 0;
+let computerScore = 0;
+
+const paperButton = document.querySelector('.paper');
+const scissorButton = document.querySelector('.scissors');
+const rockButton = document.querySelector('.rock');
+
+
+paperButton.addEventListener('click', function(){
+  if (!timeoutActive) {
+    playerChoice = "paper";
+    playRound('paper');
+    asciirow.style.marginleft = '100px';
+  }
+});
+
+scissorButton.addEventListener('click', function() {
+  if (!timeoutActive) {
+    playerChoice = 'scissors';
+    playRound('scissors');
+  }
+});
+
+rockButton.addEventListener('click', function() {
+  if (!timeoutActive) {
+    playerChoice = 'rock';
+    playRound('rock');
+  }
+});
+
+
+const playerDisplay = document.querySelector('.player');
+playerDisplay.textContent = `Player score: ${playerScore}`;
+
+const computerDisplay = document.querySelector('.computer');
+computerDisplay.textContent = `Computer score: ${computerScore}`;
+
+const playerArt = document.querySelector('.player-art');
+const computerArt = document.querySelector(`.computer-art`);
+
+const instructions = document.querySelector('.instructions');
+instructions.textContent = "Choose paper, scissors or rock";
+
+const resetButton = document.querySelector('.reset');
+
+
+
+
+resetButton.addEventListener('click', function() {
+    reset();
+    playerScore = 0;
+    computerScore = 0;
+    playerDisplay.textContent = `Player score: ${playerScore}`;
+    computerDisplay.textContent = `Computer score: ${computerScore}`;
+});
+
+function mouseHover(event) {
+  if (event.target == paperButton && playerChoiceMade == false) {
+    playerArt.innerText = playerAscii[`paper`];
+  } else if (event.target == scissorButton && playerChoiceMade == false) {
+    playerArt.innerText = playerAscii[`scissors`];
+  } else if (event.target == rockButton && playerChoiceMade == false) {
+    playerArt.innerText = playerAscii[`rock`];
+  }
+}
+
+
+paperButton.addEventListener("mouseover", mouseHover);
+scissorButton.addEventListener("mouseover", mouseHover);
+rockButton.addEventListener("mouseover", mouseHover);
+
+paperButton.addEventListener("mouseout", function() {
+  if (playerChoiceMade == false )
+  {
+    playerArt.innerText = "";
+  }
+});
+
+scissorButton.addEventListener("mouseout", function() {
+  if (playerChoiceMade == false) {
+    playerArt.innerText = "";
+  }
+});
+
+rockButton.addEventListener("mouseout", function() {
+  if (playerChoiceMade == false) {
+    playerArt.innerText = "";
+  }
+});
